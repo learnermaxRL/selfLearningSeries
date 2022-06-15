@@ -18,6 +18,12 @@ fn match_item(){
 
 }
 
+fn ref_sasmple(){
+    let a = 42;
+    let r = &a;
+    let b = a + *r;
+    println!("a + a = {}", b);
+}
 
 
 fn main() {
@@ -31,4 +37,5 @@ fn main() {
    println!("{}", count);
 
    match_item();
+   ref_sasmple();
 }
