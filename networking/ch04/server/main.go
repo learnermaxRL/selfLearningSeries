@@ -1,11 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"net"
 )
 
-func handleConnection(conn net.Conn) {
+func handleConnectionRead(conn net.Conn) {
 
 	out := make([]byte, 24)
 	for {
@@ -15,6 +16,19 @@ func handleConnection(conn net.Conn) {
 			return
 		}
 		fmt.Println(string(out))
+	}
+
+}
+
+func handleConnectionBufio(conn net.Conn) {
+	scanner := bufio.NewScanner(conn)
+	// scanner.Split("\n")
+	// var words string
+	scanner.Split(bufio.ScanWords)
+	for scanner.Scan() {
+
+		fmt.Println(scanner.Text())
+		// fmt.Println("-")
 	}
 
 }
@@ -39,7 +53,7 @@ func CreateServer(addr, port string) {
 			// handle error
 		}
 
-		go handleConnection(conn)
+		go handleConnectionBufio(conn)
 
 	}
 	defer ln.Close()
