@@ -17,7 +17,8 @@ We can toggle a bit by a bitwise XOR (∧
 
 */
 
-
+//Leaving this book as its giving out every code and its hard not look at solutions
+// and do it myself aso tthe instructtions are not proper fortob esable tto code independelly
 
 extern crate hex;
 struct CPU {

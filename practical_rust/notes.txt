@@ -1,0 +1,35 @@
+Rustup installs th compiler,cargo,standard lib and other tools
+all these tools are availabel in mutiple flvours called ttoolchain 
+whihc is combination of release channel and host 
+and optiuonally has an assoiciated archive date
+
+
+two basic ttypes of rust proects
+1)Libraries
+pieces of code intended for use by other programs,intention is toolsuse up work done by other devlopers for solving a featuer
+itts also called lib crate
+program executtion for library caret begins at src/lib.rs 
+
+
+2) Binaries:
+sttandalone program tthatt executes which might download something
+called bin create tthe execution starts at main() in src/main.rs
+
+Rust heirechy of code org
+1)Function
+2) Module  - code within module has its own namespace,contains useer defined types,other module imports
+function sdecalrations
+multiple modules can be defined wihtin simple source file or a module can contain source codes
+spread across multiple files.
+
+3) Crates - multipl mouddles are organized intto crates,serves as unit of code sharing acrossrust projects
+a crate is eithe rlibrary or binary
+
+4) Packages: multiple crates can be comhbined into pacjkge,a package can contain>x multipl ebinary but only one lib crate
+packages contain cargo.toml files 
+
+
+5) Workspaceas: multiple pacakges can be used in a workspace
+
+cargo default register is crates.oio we can change that to inlcued another registertry from whihc packages can 
+be downloaded,think if it as like a collcetion office
