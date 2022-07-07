@@ -1,0 +1,23 @@
+when we tun on computer,
+
+executes firmware code stored in motherboard
+this code perforrrms power on self tesst
+
+once it perrforms htese checks it look for 
+bootable diks and starts booting the OS kerrrnel
+
+On x86v we have BIOS which is the firmwarre code 
+and UEFI whic i ssne.
+
+BIOSS is loaded form special flash memory loaded on 
+motherboarrd,
+this BIOS code then does initlaizaion routtine of hadware
+and then looks for boottable disks
+
+Conbtrol iss tthen trasnferred ot his boolaoder
+tunr on -> BIOSS loaded from flash mem-> Ssself testt ,hardware inits->
+looks fffor bootable idks-> runs the bootbale progfram
+
+bootloader determines location of kernel image on disk->
+switches CPU from 16 bt real mode to 64 bitt long mode
+
