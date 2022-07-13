@@ -1,17 +1,39 @@
 struct Groups<T> {
     inner: Vec<T>,
+    count:usize
 }
 
 impl<T> Groups<T> {
     fn new(inner: Vec<T>) -> Self {
-	    Groups { inner }
+	    Groups { inner,count:0 }
     }
 }
 
 impl<T: PartialEq> Iterator for Groups<T> {
     type Item = Vec<T>;
 
-    // TODO: Write the rest of this implementation.
+    fn next(&mut self) -> Option<Self::Item>  {
+        let vec = Vec::new();
+        self.count+=1;
+        let curr = &self.inner.get(self.count);
+        let loc=0;
+        loop {
+            self.count+=1;
+            if let self.inner[self.count] !=curr {
+                vec.insert(loc, curr);
+            }  
+            loc+=1;
+            if self.inner[self.count] != curr {
+                break;
+            }
+        }
+        return Some(vec);
+
+    }
+
+
+    
+    
 }
 
 fn main() {
