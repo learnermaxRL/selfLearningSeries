@@ -13,7 +13,7 @@ rust bytes are represnted by type u8
 
 #![allow(unused_variables)]
 
-
+// use std::string::ToString
 use std::fmt::Display;
 use std::str::FromStr;
 use std::num::ParseIntError;
@@ -33,14 +33,26 @@ impl ChunkType {
         self.content
     }
     pub fn is_valid(&self)-> bool {
-       true
+       
+       for c in self.content {
+           println!("{}",c);
+           if !((c>=65  && c <=90 ) || (c>=97  && c <=122 )){
+               return false;
+           }
+       }
+       return true;
     }
+
+    pub fn is_err(&self)-> bool {
+       
+        return !self.is_valid()
+     }
 
     pub fn is_critical(&self) -> bool {
        
-        println!("{:0b} {}  is_critical",self.content[0],self.content[0]);
-        println!("{}",self.content[0] & (1 << (5 - 1))>>4);
-        if (self.content[3] & (1 << (3- 1)))>>4 !=0 {
+        println!("{:0b}   is_critical {}",self.content[0],self.content[0]);
+        println!("{}",(self.content[0]  >> 5) & 1 );
+        if ((self.content[0]  >> 5) & 1 !=0) {
             println!("false");
             false
         }
@@ -54,9 +66,9 @@ impl ChunkType {
 
     pub fn is_public(&self) -> bool {
         
-        println!("{:0b} is_public",self.content[1]);
-        println!("{}",self.content[1] & (1 << (5 - 1))>>4);
-        if (self.content[2] & (1 << (3 - 1)))>>4 !=0{
+        println!("{:0b} is_public {}",self.content[1],self.content[1]);
+        println!("{}",(self.content[1]  >> 5) & 1);
+        if ((self.content[1]  >> 5) & 1 !=0){
             println!("false");
             false
         }
@@ -67,9 +79,9 @@ impl ChunkType {
     }
 
     pub fn is_reserved_bit_valid(&self) -> bool {
-        println!("{:0b} is_reserved_bit_valid",self.content[2]);
-        println!("{}",self.content[2] & (1 << (5 - 1))>>4);
-        if (self.content[1] & (1 << (3 - 1)))>>4 !=0{
+        println!("{:0b} is_reserved_bit_valid {}",self.content[2],self.content[2]);
+        println!("{}",(self.content[2]  >> 5) & 1);
+        if ((self.content[2]  >> 5) & 1 !=0){
             println!("false");
             false
         }
@@ -81,9 +93,9 @@ impl ChunkType {
     }
 
     pub fn is_safe_to_copy(&self) -> bool {
-        println!("{:0b} is_safe_to_copy",self.content[3]);
-        println!("{}",self.content[00] & (1 << (5 - 1))>>4);
-        if (self.content[0] & (1 << (3- 1)))>>4 !=0{
+        println!("{:0b} is_safe_to_copy {}",self.content[3],self.content[3]);
+        println!("{}",(self.content[3]  >> 5) & 1 );
+        if ((self.content[3]  >> 5) & 1 ==0){
             println!("false");
             false
         }
@@ -125,13 +137,18 @@ impl FromStr for ChunkType {
     }
 }
 
+// impl ToString for ChunkType {
+
+//     fn to_string(&self) -> String {
+
+//         String::from_utf8(self.content.to_vec()).unwrap()
+//     }
+
+// }
+
 impl fmt::Display for ChunkType {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "[")?;
-        for v in self.content {
-            write!(f, "{}, ", v)?;
-        }
-        write!(f, "]")?;
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {      
+        write!(f, "{}",std::str::from_utf8(&self.content).unwrap().to_string())?;
         Ok(())
     }
 }
@@ -209,21 +226,26 @@ mod tests {
     #[test]
     pub fn test_valid_chunk_is_valid() {
         let chunk = ChunkType::from_str("RuSt").unwrap();
+        
         assert!(chunk.is_valid());
     }
 
     #[test]
     pub fn test_invalid_chunk_is_valid() {
         let chunk = ChunkType::from_str("Rust").unwrap();
-        assert!(!chunk.is_valid());
+        println!("----s{}----",chunk.is_valid());
+        assert!(chunk.is_valid());
 
-        let chunk = ChunkType::from_str("Ru1t");
+        // println
+        let chunk = ChunkType::from_str("Ru1t").unwrap();
+        println!("----s{}----",chunk.is_valid());
         assert!(chunk.is_err());
     }
 
     #[test]
     pub fn test_chunk_type_string() {
         let chunk = ChunkType::from_str("RuSt").unwrap();
+        println!("{}",chunk);
         assert_eq!(&chunk.to_string(), "RuSt");
     }
 
