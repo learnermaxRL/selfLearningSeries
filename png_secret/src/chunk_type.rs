@@ -38,48 +38,57 @@ impl ChunkType {
 
     pub fn is_critical(&self) -> bool {
        
-        println!("{:0b} {}",self.content[0],self.content[0]);
-        println!("{}",self.content[0] & (1 << (5 - 1)))>>4);
-        if (self.content[0] & (1 << (5 - 1)))>>4 !=1 {
+        println!("{:0b} {}  is_critical",self.content[0],self.content[0]);
+        println!("{}",self.content[0] & (1 << (5 - 1))>>4);
+        if (self.content[3] & (1 << (3- 1)))>>4 !=0 {
+            println!("false");
             false
         }
         else {
+            println!("true");
             true
+            
         }
 
     }
 
     pub fn is_public(&self) -> bool {
         
-        println!("{:0b}",self.content[1]);
-        println!("{}",self.content[1] & (1 << (5 - 1)))>>4);
-        if (self.content[1] & (1 << (5 - 1)))>>4 != 1{
+        println!("{:0b} is_public",self.content[1]);
+        println!("{}",self.content[1] & (1 << (5 - 1))>>4);
+        if (self.content[2] & (1 << (3 - 1)))>>4 !=0{
+            println!("false");
             false
         }
         else {
+            println!("true");
             true
         }
     }
 
     pub fn is_reserved_bit_valid(&self) -> bool {
-        println!("{:0b}",self.content[2]);
-        println!("{}",self.content[2] & (1 << (5 - 1)))>>4);
-        if (self.content[2] & (1 << (5 - 1)))>>4 != 1{
+        println!("{:0b} is_reserved_bit_valid",self.content[2]);
+        println!("{}",self.content[2] & (1 << (5 - 1))>>4);
+        if (self.content[1] & (1 << (3 - 1)))>>4 !=0{
+            println!("false");
             false
         }
         else {
+            println!("true");
             true
         }
 
     }
 
     pub fn is_safe_to_copy(&self) -> bool {
-        println!("{:0b}",self.content[3]);
-        println!("{}",self.content[3] & (1 << (5 - 1)))>>4);
-        if (self.content[3] & (1 << (5 - 1)))>>4 != 1{
+        println!("{:0b} is_safe_to_copy",self.content[3]);
+        println!("{}",self.content[00] & (1 << (5 - 1))>>4);
+        if (self.content[0] & (1 << (3- 1)))>>4 !=0{
+            println!("false");
             false
         }
         else {
+            println!("true");
             true
         }
 
